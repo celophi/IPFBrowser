@@ -160,11 +160,19 @@ namespace IPFBrowser.FileFormats.IES
 		public uint ResourceOffset { get; set; }
 		public uint FileSize { get; set; }
 		public string Name { get; set; }
+
+		/// <summary>
+		/// Purpose is unknown, but the name 'KeyId' appears in the source.
+		/// </summary>
 		public string KeyId { get; set; }
 		public ushort ColumnCount { get; set; }
 		public ushort RowCount { get; set; }
 		public ushort NumberColumnCount { get; set; }
 		public ushort StringColumnCount { get; set; }
+
+		/// <summary>
+		/// When '1', this indicates that the 'ClassId' should be written as an attribute when converting to XML.
+		/// </summary>
 		public ushort WriteClassId { get; set; }
 	}
 
