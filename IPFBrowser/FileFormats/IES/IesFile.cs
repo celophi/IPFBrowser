@@ -89,7 +89,8 @@ namespace IPFBrowser.FileFormats.IES
 		private void ReadHeader()
 		{
 			this.Header = new IesHeader();
-			this.Header.Name = Encoding.UTF8.GetString(_reader.ReadBytes(0x80));
+			this.Header.Name = Encoding.UTF8.GetString(_reader.ReadBytes(0x40));
+			this.Header.KeyId = Encoding.UTF8.GetString(_reader.ReadBytes(0x40));
 			_reader.ReadUInt32();
 			this.Header.DataOffset = _reader.ReadUInt32();
 			this.Header.ResourceOffset = _reader.ReadUInt32();
@@ -159,6 +160,7 @@ namespace IPFBrowser.FileFormats.IES
 		public uint ResourceOffset { get; set; }
 		public uint FileSize { get; set; }
 		public string Name { get; set; }
+		public string KeyId { get; set; }
 		public ushort ColumnCount { get; set; }
 		public ushort RowCount { get; set; }
 		public ushort NumberColumnCount { get; set; }
