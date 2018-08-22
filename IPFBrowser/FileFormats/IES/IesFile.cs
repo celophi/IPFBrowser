@@ -71,7 +71,7 @@ namespace IPFBrowser.FileFormats.IES
 			{
 				var item = new IesColumn();
 				item.Name = this.DecryptString(_reader.ReadBytes(0x40), null);
-				item.Name2 = this.DecryptString(_reader.ReadBytes(0x40), null);
+				item.NameWithOption = this.DecryptString(_reader.ReadBytes(0x40), null);
 				item.Type = (ColumnType)_reader.ReadUInt16();
 				_reader.ReadUInt32();
 				item.Position = _reader.ReadUInt16();
@@ -179,7 +179,11 @@ namespace IPFBrowser.FileFormats.IES
 	public class IesColumn : IComparable<IesColumn>
 	{
 		public string Name { get; set; }
-		public string Name2 { get; set; }
+
+		/// <summary>
+		/// Name prefixed with load options. The options control whether a property is static, cached, etc.
+		/// </summary>
+		public string NameWithOption { get; set; }
 		public ColumnType Type { get; set; }
 		public ushort Position { get; set; }
 
@@ -187,7 +191,7 @@ namespace IPFBrowser.FileFormats.IES
 
 		public int CompareTo(IesColumn other)
 		{
-			if (((this.Type == other.Type) || ((this.Type == ColumnType.String) && (other.Type == ColumnType.String2))) || ((this.Type == ColumnType.String2) && (other.Type == ColumnType.String)))
+			if (((this.Type == other.Type) || ((this.Type == ColumnType.String) && (other.Type == ColumnType.Calculated))) || ((this.Type == ColumnType.Calculated) && (other.Type == ColumnType.String)))
 				return this.Position.CompareTo(other.Position);
 
 			if (this.Type < other.Type)
@@ -201,7 +205,7 @@ namespace IPFBrowser.FileFormats.IES
 	{
 		Float,
 		String,
-		String2
+		Calculated
 	}
 
 	public class IesRow : Dictionary<string, object>
