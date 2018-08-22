@@ -95,7 +95,7 @@ namespace IPFBrowser.FileFormats.IES
 			this.Header.DataOffset = _reader.ReadUInt32();
 			this.Header.ResourceOffset = _reader.ReadUInt32();
 			this.Header.FileSize = _reader.ReadUInt32();
-			_reader.ReadUInt16();
+			this.Header.WriteClassId = _reader.ReadUInt16();
 			this.Header.RowCount = _reader.ReadUInt16();
 			this.Header.ColumnCount = _reader.ReadUInt16();
 			this.Header.NumberColumnCount = _reader.ReadUInt16();
@@ -165,6 +165,7 @@ namespace IPFBrowser.FileFormats.IES
 		public ushort RowCount { get; set; }
 		public ushort NumberColumnCount { get; set; }
 		public ushort StringColumnCount { get; set; }
+		public ushort WriteClassId { get; set; }
 	}
 
 	public class IesColumn : IComparable<IesColumn>
